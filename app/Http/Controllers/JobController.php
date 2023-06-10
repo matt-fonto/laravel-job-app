@@ -75,6 +75,9 @@ class JobController extends Controller
             $formFields['logo'] = $request->logo->store('logos', 'public');
         }
 
+        // get the authenticated user's id and add it to the form fields
+        $formFields['user_id'] = auth()->user()->id;
+
         // Save the job to the database
         Job::create($formFields);
 
@@ -86,6 +89,12 @@ class JobController extends Controller
     {
         // Find the job with the specified id
         $job = Job::findOrFail($id);
+
+        // Check if the authenticated user is the owner of the job
+        if (auth()->user()->id != $job->user_id) {
+            abort(403, 'Unauthorized action.');
+        }
+
         // Return the view
         return view('jobs.edit', compact('job'));
     }
@@ -95,6 +104,11 @@ class JobController extends Controller
     {
         // Find the job with the specified id
         $job = $this->findJob($id);
+
+        // Check if the authenticated user is the owner of the job
+        if (auth()->user()->id != $job->user_id) {
+            abort(403, 'Unauthorized action.');
+        }
 
         // Validate the form fields
         $formFields = $request->validate([
@@ -123,9 +137,26 @@ class JobController extends Controller
         // Find the job with the specified id
         $job = $this->findJob($id);
 
+        // Check if the authenticated user is the owner of the job
+        if (auth()->user()->id != $job->user_id) {
+            abort(403, 'Unauthorized action.');
+        }
+
         // Delete the job from the database
         $job->delete();
 
         return redirect('/')->with('message', 'Job deleted!');
     }
+
+    // manage job applications
+    public function manage()
+    {
+        // Return the view
+        return view('jobs.manage', [
+            // where jobs belongs to the authenticated user
+            'jobs' => auth()->user()->jobs
+        ]);
+    }
 }
+
+// 4:09:45

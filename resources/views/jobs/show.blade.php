@@ -51,7 +51,7 @@
         </div>
     </x-card>
 
-    <x-card class="mt-4 p-2 flex space-x-6">
+    {{-- <x-card class="mt-4 p-2 flex space-x-6">
         <a href="/jobs/{{$job->id}}/edit">
             <i class="fa-solid fa-pencil"></i> Edit
         </a>
@@ -65,7 +65,8 @@
             <button type="submit" class="text-red-500">
                 <i class="fa-solid fa-trash" ></i> Delete
             </button>
-    </x-card>
+        </form>
+    </x-card> --}}
 
 </div>
 

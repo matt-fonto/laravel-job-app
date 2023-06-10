@@ -280,3 +280,8 @@ This led to wordPress, which is written in Php.
 In addition to these, Laravel provides resourceful routing conventions, which allow you to define routes for all the CRUD operations using a single line of code. This can be done using the Route::resource method. For example:
 
 Route::resource('resource', ResourceController::class);
+
+## Tinker
+
+-   Tinker is a REPL (Read-Eval-Print-Loop) environment for PHP, similar to Node.js REPL
+-   REPL is a simple interactive computer programming environment that takes single user inputs, executes them, and returns the result to the user
